@@ -1,0 +1,4 @@
+interface:
+  display_name: "IELTS Task 1 Paraphrase Coach"
+  short_description: "Coach IELTS Task 1 prompt paraphrasing"
+  default_prompt: "Use $ielts-task1-paraphrase-coach to give me an IELTS Writing Task 1 prompt, review my paraphrase, and teach the rewrite choices."
