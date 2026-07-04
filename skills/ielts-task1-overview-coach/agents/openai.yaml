@@ -1,0 +1,4 @@
+interface:
+  display_name: "IELTS Task 1 Overview Coach"
+  short_description: "Practise IELTS Task 1 overview paragraphs"
+  default_prompt: "Use $ielts-task1-overview-coach to give me one Task 1 chart and train my overview paragraph."
