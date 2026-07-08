@@ -21,7 +21,7 @@ Use Simon-style Task 1 discipline and Lexi-style chart grouping:
 
 ## Teaching Loop
 
-1. Provide one IELTS Task 1 prompt with a simple image-style visual and a clickable local link that can open the visual in the side panel/browser.
+1. Provide one IELTS Task 1 prompt with an interactive local HTML visual and a clickable `http://127.0.0.1:<port>/...` link that can open in the Codex in-app browser.
 2. Ask the learner to write only the overview paragraph, normally 1-2 sentences.
 3. If the learner asks for `给点提示`, give scaffolded hints before showing a model.
 4. After the learner responds, score the overview and diagnose main-feature selection first, then language.
@@ -30,7 +30,7 @@ Use Simon-style Task 1 discipline and Lexi-style chart grouping:
 
 Keep the interaction incremental. Do not give several unseen tasks at once unless the user explicitly asks for a set.
 
-## Prompt With Visual Format
+## Interactive HTML Visual Format
 
 When giving a practice prompt, include:
 
@@ -38,14 +38,28 @@ When giving a practice prompt, include:
 
 The task statement.
 
-**图表图片**
+**交互图表**
 
-An image-style visual whenever the environment supports image display. Use a clear line chart, bar chart, pie chart, table, map, process diagram, or mixed chart. Prefer creating a local `.svg` or image file in the active IELTS workspace, then show both:
+Create a local `.html` file in the active IELTS workspace for every chart, table, map, process diagram, or mixed-chart prompt. Use a clean IELTS-style black-and-white layout by default: white background, serif font, thin black grid/axes, restrained spacing, and no decorative colors except learner markings.
 
-- a Markdown image preview using the absolute local path, such as `![IELTS Task 1 table](/Users/.../task1_table_example.svg)`;
-- a clickable side-panel/browser link immediately below it, such as `[打开图表](/Users/.../task1_table_example.svg)`.
+Start or reuse a local HTTP server for the workspace so the in-app browser can open the file:
 
-The clickable link is required whenever a local visual file is available, so the learner can open the chart separately in the side panel. If image generation/display is unavailable, fall back to a compact Markdown visual under `图表信息`.
+- Prefer port `8765` when available.
+- If the server is not running, start it from the IELTS workspace with `zsh -lic 'python3 -m http.server 8765 --bind 127.0.0.1'` or an equivalent background command.
+- If port `8765` is occupied by another useful workspace server, reuse it. If it is occupied by something else, choose the next available nearby port and use that port in links.
+- Always provide a browser link such as `[打开交互图表](http://127.0.0.1:8765/task1_table_example.html)`.
+
+For table prompts, the HTML must support these interactions:
+
+- Text in cells should be selectable.
+- Left-click a numeric/data cell to toggle a high-value marker, normally green.
+- Right-click a numeric/data cell to toggle a low-value marker, normally red, and suppress the browser context menu for that cell.
+- A cell should not keep both high and low markers at once.
+- Do not make row/column headers clickable unless that helps the task.
+
+For line, bar, pie, map, process, and mixed-chart prompts, keep the visual inside the HTML page and add lightweight interaction only when useful: clickable labels/points/bars/regions for marking important features, hover titles for unfamiliar labels, or a small legend for learner markings. Do not let interaction distract from overview practice.
+
+If the in-app browser or HTTP server is unavailable, fall back to a compact Markdown visual under `图表信息`, and say briefly that the interactive HTML could not be opened.
 
 Then ask:
 
