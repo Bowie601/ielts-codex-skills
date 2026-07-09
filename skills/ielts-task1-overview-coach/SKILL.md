@@ -40,7 +40,7 @@ The task statement.
 
 **交互图表**
 
-Create a local `.html` file in the active IELTS workspace for every chart, table, map, process diagram, or mixed-chart prompt. Use a clean IELTS-style black-and-white layout by default: white background, serif font, thin black grid/axes, restrained spacing, and no decorative colors except learner markings.
+Create a local `.html` file in the active IELTS workspace for every chart, table, map, process diagram, or mixed-chart prompt. Use a clean IELTS-style layout by default: white background, serif font, thin black grid/axes, and restrained spacing. Keep most visuals black-and-white except learner markings, but make bar charts easier to read by giving each bar series or category a distinct, low-saturation fill color with a black outline and matching legend swatch.
 
 Start or reuse a local HTTP server for the workspace so the in-app browser can open the file:
 
@@ -57,7 +57,7 @@ For table prompts, the HTML must support these interactions:
 - A cell should not keep both high and low markers at once.
 - Do not make row/column headers clickable unless that helps the task.
 
-For line, bar, pie, map, process, and mixed-chart prompts, keep the visual inside the HTML page and add lightweight interaction only when useful: clickable labels/points/bars/regions for marking important features, hover titles for unfamiliar labels, or a small legend for learner markings. Do not let interaction distract from overview practice.
+For line, bar, pie, map, process, and mixed-chart prompts, keep the visual inside the HTML page and add lightweight interaction only when useful: clickable labels/points/bars/regions for marking important features or hover titles for unfamiliar labels. For bar charts, use color primarily to distinguish bar series/categories rather than as decoration; choose readable, muted colors that still work with black text, axes, and gridlines. Make chart legends very easy to read: use legend text that is clearly larger than axis labels or ordinary small labels, usually around 18-20px in SVG/HTML charts. Keep primary group/category labels and chart legend text visually consistent, using the same or very similar font size. Prefer extra spacing, wrapping, or a wider legend area over shrinking legend text. Do not add a separate bottom instruction block or extra high/low learner-marking legend such as `Click a bar...`, `high / important`, or `low / minor` unless the user explicitly asks for visible marking instructions. Do not let interaction distract from overview practice.
 
 If the in-app browser or HTTP server is unavailable, fall back to a compact Markdown visual under `图表信息`, and say briefly that the interactive HTML could not be opened.
 
