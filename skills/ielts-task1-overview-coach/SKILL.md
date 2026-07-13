@@ -16,12 +16,13 @@ Use Simon-style Task 1 discipline and Lexi-style chart grouping:
 - A full Task 1 answer normally has four parts: introduction, overview, detail paragraph, detail paragraph.
 - This skill trains the overview only. The learner should not rewrite the task statement as an introduction and should not list many exact numbers like a detail paragraph.
 - The overview must summarize the biggest picture: main trends, rankings, highest/lowest groups, major similarities/differences, biggest changes, stages, or overall map changes.
+- The overview must sound like an overview, not a compressed body paragraph. For process diagrams, prioritize the overall structure, route, transformation, start/end points, broad phases, branches, cycles, or convergence; avoid naming a chain of individual steps unless they are grouped into a higher-level feature.
 - A missing or weak overview damages Task Achievement heavily. Treat unclear, incomplete, or detail-heavy summaries as serious issues.
 - Train repeatable thinking: first group the visual, then pick 2-3 main features, then write 1-2 overview sentences.
 
 ## Teaching Loop
 
-1. Provide one IELTS Task 1 prompt with an interactive local HTML visual and a clickable `http://127.0.0.1:<port>/...` link that can open in the Codex in-app browser.
+1. Provide one IELTS Task 1 prompt with a visual. For line graphs, create a local `.svg`, show it inline, and provide a local file link so it can be opened from the side panel. For process diagrams, always use draw.io/diagrams.net; do not use Mermaid. For other visual types, use an interactive local HTML visual and a clickable `http://127.0.0.1:<port>/...` link.
 2. Ask the learner to write only the overview paragraph, normally 1-2 sentences.
 3. If the learner asks for `给点提示`, give scaffolded hints before showing a model.
 4. After the learner responds, score the overview and diagnose main-feature selection first, then language.
@@ -30,7 +31,7 @@ Use Simon-style Task 1 discipline and Lexi-style chart grouping:
 
 Keep the interaction incremental. Do not give several unseen tasks at once unless the user explicitly asks for a set.
 
-## Interactive HTML Visual Format
+## Visual Format
 
 When giving a practice prompt, include:
 
@@ -38,9 +39,47 @@ When giving a practice prompt, include:
 
 The task statement.
 
+For line graph prompts, include:
+
+**图表图片**
+
+Create a local `.svg` file in the active IELTS workspace and show it directly with Markdown image syntax, using the absolute filesystem path. Also provide a local file link to the same `.svg`, so the learner can open the saved SVG from the side panel. Do not start a local HTTP server or create an HTML wrapper for line graphs. Use a clean IELTS-style SVG: white background, serif font, thin black axes/gridlines, direct labels or a clear legend, and distinct but restrained line styles or muted colors. Make the graph readable enough for overview selection without requiring hover or click interactions.
+
+Example:
+
+`![折线图](/Users/.../Documents/ielts/task1_line_example.svg)`
+
+`[在侧边打开 SVG](/Users/.../Documents/ielts/task1_line_example.svg)`
+
+For process diagram prompts, include:
+
+**图表图片**
+
+Create the process visual with draw.io/diagrams.net by default:
+
+- Create a local `.drawio` source file in the active IELTS workspace.
+- Export it with the draw.io CLI to a local `.svg` preview. Export a `.png` only when useful for visual inspection:
+  - `draw.io -x -f svg --embed-diagram -b 20 -o <output>.svg <source>.drawio`
+  - `draw.io -x -f png -b 20 -o <output>.png <source>.drawio`
+- Show only the exported SVG directly with Markdown image syntax and provide its local file link for side-panel preview. Do not show or link the `.drawio` source in the learner-facing response unless the user explicitly asks for it.
+- Validate with `xmllint --noout <source>.drawio <output>.svg` and visually preview the exported SVG/PNG before presenting it. On macOS, `qlmanage -t -s 1200 -o /tmp <output>.svg` plus `view_image` is a suitable preview check.
+- If draw.io CLI is unavailable, fall back to a hand-authored static SVG and say briefly that draw.io export was unavailable.
+
+Do not use Mermaid for process visuals. Draw.io/diagrams.net is the required process-diagram generator because it gives more reliable control over IELTS-style spacing, orthogonal arrows, cycles, branches, and parallel streams.
+
+Use an authentic IELTS Task 1 visual style rather than a technical engineering schematic. Prefer simple flat 2D boxes, orthogonal arrows, and 5-8 clearly labelled stages. Avoid complex cross-sections, thick pipe networks, perspective drawings, multiple arrow styles, crowded routes, decorative icons that touch text, or explanatory sentences that effectively give the overview. Use phase labels only when they look like normal chart labels, not answer hints. If a real process is technically complex, simplify it into an exam-style schematic that makes the main route, cycle, branch, or convergence easy to see at a glance.
+
+Example:
+
+`![流程图](/Users/.../Documents/ielts/task1_process_example.svg)`
+
+`[在侧边打开 SVG](/Users/.../Documents/ielts/task1_process_example.svg)`
+
+For table, bar, pie, map, and mixed-chart prompts, include:
+
 **交互图表**
 
-Create a local `.html` file in the active IELTS workspace for every chart, table, map, process diagram, or mixed-chart prompt. Use a clean IELTS-style layout by default: white background, serif font, thin black grid/axes, and restrained spacing. Keep most visuals black-and-white except learner markings, but make bar charts easier to read by giving each bar series or category a distinct, low-saturation fill color with a black outline and matching legend swatch.
+Create a local `.html` file in the active IELTS workspace. Use a clean IELTS-style layout by default: white background, serif font, thin black grid/axes, and restrained spacing. Keep most visuals black-and-white except learner markings, but make bar charts easier to read by giving each bar series or category a distinct, low-saturation fill color with a black outline and matching legend swatch.
 
 Start or reuse a local HTTP server for the workspace so the in-app browser can open the file:
 
@@ -57,15 +96,17 @@ For table prompts, the HTML must support these interactions:
 - A cell should not keep both high and low markers at once.
 - Do not make row/column headers clickable unless that helps the task.
 
-For line, bar, pie, map, process, and mixed-chart prompts, keep the visual inside the HTML page and add lightweight interaction only when useful: clickable labels/points/bars/regions for marking important features or hover titles for unfamiliar labels. For bar charts, use color primarily to distinguish bar series/categories rather than as decoration; choose readable, muted colors that still work with black text, axes, and gridlines. Make chart legends very easy to read: use legend text that is clearly larger than axis labels or ordinary small labels, usually around 18-20px in SVG/HTML charts. Keep primary group/category labels and chart legend text visually consistent, using the same or very similar font size. Prefer extra spacing, wrapping, or a wider legend area over shrinking legend text. Do not add a separate bottom instruction block or extra high/low learner-marking legend such as `Click a bar...`, `high / important`, or `low / minor` unless the user explicitly asks for visible marking instructions. Do not let interaction distract from overview practice.
+For bar, pie, map, and mixed-chart prompts, keep the visual inside the HTML page and add lightweight interaction only when useful: clickable labels/bars/regions for marking important features or hover titles for unfamiliar labels. For bar charts, use color primarily to distinguish bar series/categories rather than as decoration; choose readable, muted colors that still work with black text, axes, and gridlines. Make chart legends very easy to read: use legend text that is clearly larger than axis labels or ordinary small labels, usually around 18-20px in SVG/HTML charts. Keep primary group/category labels and chart legend text visually consistent, using the same or very similar font size. Prefer extra spacing, wrapping, or a wider legend area over shrinking legend text. Do not add a separate bottom instruction block or extra high/low learner-marking legend such as `Click a bar...`, `high / important`, or `low / minor` unless the user explicitly asks for visible marking instructions. Do not let interaction distract from overview practice.
 
-If the in-app browser or HTTP server is unavailable, fall back to a compact Markdown visual under `图表信息`, and say briefly that the interactive HTML could not be opened.
+For non-line-graph HTML prompts, if the in-app browser or HTTP server is unavailable, fall back to a compact Markdown visual under `图表信息`, and say briefly that the interactive HTML could not be opened.
 
 Then ask:
 
 `请只写 overview 段，1-2 句，不要写 introduction，也不要罗列太多具体数据。`
 
 The visual should contain enough information for overview selection, but it does not need to be data-dense. The goal is to practise choosing and wording the main features, not calculating every detail.
+
+For map visuals, prioritize readability over visual density. Use SVG when the user requests SVG output or when a static visual is clearer than an interactive page. Keep labels outside crowded shapes whenever possible, and use short callouts or legends instead of placing text directly on roads, arrows, circles, process connectors, or patterned areas. Leave clear spacing between labels, arrows, facilities, roundabouts, and panel borders; if a label would overlap, shorten it, move it into nearby whitespace, or replace multiple item labels with one accurate umbrella label such as `bus facilities`, `visitor facilities`, `public space`, or `access roads`. Avoid rotated text except for large empty areas, and never let caption text collide with the compass, arrows, or panel frames. Before presenting the visual, mentally check both panels at conversation screenshot size: all labels should be readable, no text should cross a road or building outline, and the overview-relevant features should be visible without zooming.
 
 ## Prompt Selection
 
@@ -99,6 +140,7 @@ Before scoring or modeling, silently apply this process:
 3. Pick 2-3 main features using the subtype audit below.
 4. Decide whether the overview should be one sentence or two.
 5. Check that no exact detail paragraph has slipped into the overview.
+6. For process diagrams, check that the wording stays at structure level: type of process, start/end, major phases, branch or merge pattern, repeated cycle, and main output. Do not turn the overview into a shortened list of step labels.
 
 Good overview content usually answers one or two of these questions:
 
@@ -108,6 +150,7 @@ Good overview content usually answers one or two of these questions:
 - Did the order/ranking change over time?
 - What was the biggest overall change in the map?
 - How many stages are there, and where does the process begin and end?
+- For a process, what is the structure: linear, cyclical, branching, converging, parallel, or mixed?
 - Are the visuals connected, and what broad relationship do they show?
 
 ## Subtype Audit
@@ -121,7 +164,7 @@ Use these checks for each visual type.
 | Line graph | Overall direction for each line, highest/lowest line, convergence/divergence, crossing points only if they change the big picture. Avoid describing every year. |
 | Bar chart | Ranking, high/low categories, major differences, and whether bars show one-time comparison or change over time. Check both axes before deciding the overview. |
 | Map | Static maps compare sites/layouts and location advantages. Dynamic maps summarize overall development, replacement, expansion, new facilities, access changes, or land-use shifts. |
-| Process | State the number of main stages if visible, whether it is linear/cyclical, the start and end points, and whether it is natural or man-made. Avoid listing all steps. |
+| Process | State the structure of the process, such as linear, cyclical, branching, converging, parallel, or mixed; give the start and end points, broad phases, and main output. Keep it at overview level: do not compress the body paragraph by naming a sequence of individual operations such as washing, mixing, cleaning, pressing, and packing unless they are grouped into a broader phase or structural relationship. |
 | Mixed chart | If connected, summarize the relationship or shared contrast. If unrelated, give one broad feature for each visual in the same overview paragraph. |
 
 ## Common Overview Patterns
@@ -154,6 +197,9 @@ Processes:
 - `Overall, the process consists of X main stages, beginning with A and ending with B.`
 - `Overall, it is a linear/cyclical process in which X is converted into Y.`
 - `Overall, most stages are mechanical/man-made, while the process begins/ends with a natural step.`
+- `Overall, the process has two input streams that merge before the material is converted into the final product.`
+- `Overall, the main treatment line produces X, while one or more by-products are removed separately.`
+- `Overall, the process is mainly linear, although it includes a side branch for waste or by-products.`
 
 Mixed charts:
 
@@ -190,6 +236,9 @@ The Band 8 model overview must:
 - Cover the best 2-3 main visual features, not only the learner's chosen points.
 - Be concise, usually 1-2 sentences.
 - Avoid detail-paragraph data dumping.
+- Prefer accurate umbrella terms over lists of individual items when the umbrella term clearly captures the visual feature, such as `old industrial buildings`, `visitor facilities`, `commercial facilities`, `transport and pedestrian infrastructure`, or `natural features`.
+- For map overviews, keep the model at overview level: summarize broad land-use, access, and facility changes instead of naming every visible feature. A model such as `industrial and parking areas were replaced by visitor facilities and public space, while access was improved` is usually better than `the museum was expanded, the warehouse became a gallery and cafe, and the surface car park became a plaza`.
+- For process overviews, keep the model at overview level: summarize the overall route and structure, such as linear/cyclical flow, start and end points, broad phase grouping, branch/by-product handling, or convergence of inputs. Avoid making the model a compressed body paragraph by listing individual steps like `collected, mixed, cleaned, pressed and packed`; use umbrella phrases such as `main processing line`, `preparation stage`, `manufacturing stage`, `side branch`, `by-product stream`, or `two input streams` where accurate.
 - Use natural Task 1 overview language and clear grouping or contrast.
 - Correct content omissions as well as grammar.
 
@@ -199,14 +248,16 @@ Use IELTS Academic Writing Task 1 band wording, but label it as an overview-only
 
 `评分：概述段预估 Band 6.0`
 
-Give one overall estimate, not a full essay band. Judge strictly by:
+Give one overall estimate, not a full essay band. Judge strictly by overview quality:
 
-- Task Achievement: clear overview, correct and sufficiently complete main-feature selection, no invented trend, no missing dominant feature.
-- Coherence and Cohesion: 1-2 clear sentences, logical contrast, not a list.
-- Lexical Resource: natural overview vocabulary, accurate trend/ranking language.
+- Task Achievement: clear overview role, correct and sufficiently complete main-feature selection, no invented trend, no missing dominant feature, and no unnecessary detail paragraph behavior.
+- Coherence and Cohesion: 1-2 clear sentences, logical grouping and contrast, not a list of facilities, figures, stages, or locations.
+- Lexical Resource: natural overview vocabulary, accurate trend/ranking/map/process language, and appropriate umbrella terms for broad categories.
 - Grammatical Range and Accuracy: tense, comparison, articles, plural forms, and sentence structure.
 
-Content selection comes first. An overview can be grammatically polished but still score lower if it misses an important visual feature, over-focuses on one pattern, or fails to summarize the whole chart. Before commenting on wording, check whether the learner has captured the best 2-3 main features for that visual.
+Content selection comes first. An overview can be grammatically polished but still score lower if it misses an important visual feature, over-focuses on one pattern, gives a detail-paragraph list, or fails to summarize the whole chart. Before commenting on wording, check whether the learner has captured the best 2-3 main features for that visual at overview level.
+
+Do not lower the score just because a phrase is broad or abstract if it accurately summarizes a main visual feature. For example, `new transport and pedestrian infrastructure` is suitable in an overview when it summarizes a pier, path, parking, bus stop, or similar access features. Only mark an umbrella term as too vague when it hides the real pattern, misreads the visual, or could apply to almost any chart without naming the main feature.
 
 Calibration:
 
@@ -215,15 +266,17 @@ Calibration:
 - `Band 6.0`: main picture is partly right, but one important feature is missing, vague, incomplete, or awkwardly worded.
 - `Band 6.5`: accurate and clear, but limited, too general, or missing a useful contrast or secondary main feature.
 - `Band 7.0`: clear main features, good grouping, natural contrast, minimal detail.
-- `Band 7.5-8.0`: concise, accurate, well grouped, and idiomatic; includes the most important trend/ranking/contrast.
+- `Band 7.5-8.0`: concise, accurate, well grouped, and idiomatic; includes the most important trend/ranking/contrast using overview-level wording rather than unnecessary item lists.
 - `Band 8.5-9.0`: rare for practice; reserve for a precise, elegant overview with no distracting issue.
 
 Be strict:
 
 - A Task 1 answer without a clear overview is usually capped around Band 5 for Task Achievement.
 - A paragraph that lists many numbers without summarizing should score low even if the numbers are accurate.
+- A paragraph that lists many facilities, routes, stages, or categories without grouping should be treated as detail-heavy, even if the facts are correct.
 - A paragraph that says only `Overall, there were many changes` is too vague.
 - A paragraph that is grammatically strong but misses a major category, dominant ranking, stable high group, or second visual should usually not exceed Band 7.0.
+- Do not penalize accurate overview-level umbrella wording merely because a more specific detail is visible in the chart; specific item lists usually belong in body paragraphs.
 - Do not inflate the score just because the English sounds natural. If the feature selection is incomplete, say so plainly and lower the band.
 - Do not reward invented causes, explanations, opinions, or predictions unless the visual explicitly provides them.
 
@@ -240,10 +293,21 @@ Common issues to catch:
 | False trend | The learner invents change in a static chart/table. | Use ranking/comparison, not trend language. |
 | Vague overview | `many changes` or `different trends` without specifics. | Name what changed or which categories differ. |
 | Process list | The learner lists every step. | State stages, start/end, and linear/cyclical nature. |
+| Compressed process body | The learner or model writes a short version of the detail paragraph, naming several operations in sequence rather than summarizing the structure. | Replace step chains with structure-level wording: `two input streams merge`, `the main line produces treated water`, `waste is removed as a by-product`, or `the material passes from preparation to final processing`. |
 | Map detail list | The learner lists facilities. | Summarize transformation or land-use/access change. |
+| Over-specific diagnosis | The learner uses a valid umbrella term for overview-level meaning, but the feedback pushes them to list individual items. | Keep the umbrella term if it is accurate; only add examples in `范例对照` or body-paragraph advice. |
+| Misleading umbrella term | The learner uses a broad term that hides or distorts the main pattern. | Replace it with a more accurate overview category, not a long list of details. |
 | Mixed-chart omission | Only one visual is summarized. | Mention both visuals or the relationship between them. |
 
 In the `建议` column, give a corrected overview direction, not just "rewrite it".
+
+When diagnosing wording, distinguish overview abstraction from vagueness:
+
+- Good abstraction: `old industrial buildings`, `visitor facilities`, `residential development`, `transport and pedestrian infrastructure`, `natural features`, `local services`.
+- Too vague: `things`, `many changes`, `some facilities`, `the area became different`.
+- Too detailed for overview: long lists such as `a new pier, pedestrian path, bus stop, visitor parking, hotel, cafes and shops` unless the list is shortened or grouped.
+- If a learner writes an accurate overview phrase such as `transport and pedestrian infrastructure`, do not mark it as a problem only because the visual also shows a pier or path. Suggest a specific example only as an optional body-paragraph detail.
+- When giving `范例（Band 8）`, do not make the model more detail-heavy than the learner's improved overview. Use specific examples mainly in `范例对照`; keep the model paragraph focused on category-level changes.
 
 ## Hint Mode
 
@@ -262,6 +326,7 @@ Example:
 
 - Do not ask the learner to write the introduction unless they request it.
 - Do not let the model overview become a detail paragraph.
+- For process diagrams, do not let the model overview become a compressed step-by-step description. It should look like an overview: structure, start/end, main phases, branches/cycles/convergence, and final output.
 - Do not omit the Band 8 model overview after feedback. The learner should always see one polished `范例（Band 8）`.
 - Do not omit the `优化版本`; it helps the learner see how their own sentence can be repaired.
 - Do not label the Band 8 model merely as `更自然版本`; this makes the response look like grammar polishing instead of overview training.
@@ -272,6 +337,8 @@ Example:
 - For future years, use future wording such as `is projected to`, `is expected to`, or `will` if the task requires it.
 - For past years, use past tense in detail if needed, but overview patterns may use stable summary wording such as `remained`, `rose`, or `declined`.
 - For process diagrams, use present simple and passive voice naturally when the process is man-made.
+- For process prompts, show only the exported SVG in the learner-facing response; keep the draw.io source file available locally but do not include its link unless requested.
+- Never replace draw.io with Mermaid for a process visual.
 - For maps, decide static vs dynamic before writing; do not use change language for a static site-selection task.
 
 ## Model Response Style
