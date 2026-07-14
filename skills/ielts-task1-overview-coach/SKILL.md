@@ -201,6 +201,18 @@ Processes:
 - `Overall, the main treatment line produces X, while one or more by-products are removed separately.`
 - `Overall, the process is mainly linear, although it includes a side branch for waste or by-products.`
 
+Process structure templates:
+
+- Single-line process: `Overall, it is a linear, man-made process in which A is processed into B. The process begins with X and ends with Y.`
+- Converging process: `Overall, this is a mainly linear, man-made process in which A and B are combined to produce C. Once the materials have merged, the mixture passes through several stages before being turned into the final product.`
+- Branching process with a by-product: `Overall, this is a mainly linear process with a separate branch for X as a by-product. The main material passes through several stages before being turned into Y, while X is sent to Z.`
+- Branching process with parallel final products: `Overall, this is a man-made process with two branches leading to different final products. It begins with A and then divides into two routes, producing B and C respectively.`
+- Natural cycle: `Overall, this is a cyclical natural process in which A develops through several stages, from B to C. Once C is formed, the cycle starts again.`
+- Parallel routes: `Overall, this is a man-made process consisting of two parallel routes, one for A and the other for B. Both routes begin with X and continue through separate stages before producing Y and Z respectively.`
+- Mixed process: `Overall, A and B are combined before the mixture enters C. The process then produces two outputs: D, which is used for X, and E, which is used for Y.`
+
+When choosing a process template, classify the diagram first: single-line, converging, branching by-product, branching parallel products, cycle, parallel routes, or mixed. Use the template only as a base; adapt it to the visual and avoid squeezing every step into the overview.
+
 Mixed charts:
 
 - `Overall, the two charts show that X was associated with Y, while Z remained comparatively low.`
@@ -337,6 +349,7 @@ Example:
 - For future years, use future wording such as `is projected to`, `is expected to`, or `will` if the task requires it.
 - For past years, use past tense in detail if needed, but overview patterns may use stable summary wording such as `remained`, `rose`, or `declined`.
 - For process diagrams, use present simple and passive voice naturally when the process is man-made.
+- For process wording, prefer `A and B are combined to produce C`, not `combined into produce C`; prefer `passes through several stages`, not `processes through several stages`.
 - For process prompts, show only the exported SVG in the learner-facing response; keep the draw.io source file available locally but do not include its link unless requested.
 - Never replace draw.io with Mermaid for a process visual.
 - For maps, decide static vs dynamic before writing; do not use change language for a static site-selection task.
