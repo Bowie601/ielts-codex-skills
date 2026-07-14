@@ -7,6 +7,10 @@ Public collection of IELTS-related Codex skills.
 - `ielts-task1-paraphrase-coach`: Interactive coach for IELTS Academic Writing Task 1 prompt paraphrasing.
 - `ielts-task1-overview-coach`: Interactive coach for IELTS Academic Writing Task 1 overview paragraph practice.
 
+## Notes
+
+- [写作笔记](notes/写作笔记.md): IELTS Task 1 process overview sentence patterns.
+
 ## Install
 
 Install the current skill with:
