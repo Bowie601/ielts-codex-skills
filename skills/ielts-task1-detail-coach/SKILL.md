@@ -24,7 +24,7 @@ Use Simon-style Task 1 discipline:
 
 ## Teaching Loop
 
-1. Select one visual type or subtype.
+1. Select one practice category first, then choose a suitable visual type or subtype within it.
 2. Provide one IELTS Task 1 prompt with a visual.
 3. Ask the learner to write only the two detail paragraphs, normally 2-3 sentences per paragraph.
 4. Finish the practice-prompt response with the learner-facing progress tracker.
@@ -40,13 +40,22 @@ Keep the interaction incremental. Do not give several unseen tasks at once unles
 
 Show one compact progress line as the final learner-facing block of every new practice-prompt response. Place it after the detail-paragraph instruction; never put it above the title, task statement, visual, or response instruction, and write nothing after it.
 
-For general Task 1 rotation, use these seven visual types in this fixed order:
+For general Task 1 detail practice, rotate through these six practice categories in this fixed order:
 
-`折线图 → 柱状图 → 饼图 → 表格 → 地图 → 流程图 → 混合图`
+`动态趋势 → 静态对比 → 表格 → 地图 → 流程图 → 混合图`
+
+Use the category to decide the main training focus before choosing the concrete visual:
+
+- `动态趋势`: line graphs or time-based bar/table charts; practise start/end figures, major changes, turning points, and opposite or similar trends.
+- `静态对比`: static bar charts, pie charts, or simple one-time tables; practise high/low ranking, large vs small groups, and compact comparisons.
+- `表格`: dense tables with several rows or columns; practise row/column grouping, outliers, similarities, and selective evidence.
+- `地图`: before/after maps or site plans; practise spatial grouping, functional changes, access, and specific additions/removals.
+- `流程图`: process diagrams; practise early vs later stages, main route vs branch, input vs output, and natural present-simple passive.
+- `混合图`: two connected visuals; practise deciding whether each paragraph covers one visual or both paragraphs compare across the visuals.
 
 Example:
 
-`当前进度（3/7）：折线图 → 柱状图 → 【饼图】 → 表格 → 地图 → 流程图 → 混合图`
+`当前进度（3/6）：动态趋势 → 静态对比 → 【表格】 → 地图 → 流程图 → 混合图`
 
 When the learner requests process-detail practice, track these seven process structures:
 
@@ -56,7 +65,7 @@ Example:
 
 `当前进度（6/7）：单线流程 → 汇合流程 → 副产品分支 → 双产物分支 → 自然循环 → 【并行路线】 → 混合流程`
 
-Advance to the next item when the learner asks `下一题`, unless they request a specific type, repeat the current type, or narrow the practice scope.
+Advance to the next category when the learner asks `下一题`, unless they request a specific type, repeat the current category, or narrow the practice scope.
 
 ## Visual Format
 
