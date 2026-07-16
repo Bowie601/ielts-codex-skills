@@ -213,6 +213,16 @@ Use concise Chinese labels: `评分`, `原题与图表重点`, `你的详情段`
 - Keep Visualize usage confined to the high-score model presentation; do not change prompt generation, the task visual, scoring, or correction order.
 - If the detail paragraphs are accurate and well grouped, do not manufacture markers. State that no obvious content or language problem is present and give only genuinely useful refinements.
 
+## High-Score Model Visual Style
+
+Before building `范例（Band 7）`, read [`assets/high-score-model-visual-template.html`](assets/high-score-model-visual-template.html) completely and use it as the starting fragment. Treat this as a low-freedom template, not a loose design reference.
+
+- Preserve the template's DOM order, class structure, vertical two-paragraph layout, spacing values, left accents, colored inline highlights, selected-state behavior, explanation card, and interaction logic exactly.
+- Change only the unique root/explanation IDs, accessibility text, paragraph grouping labels, model prose, highlighted phrase text, `data-key` values, and Chinese explanations.
+- Keep `Detail paragraph 1` on `--viz-series-1` and `Detail paragraph 2` on `--viz-series-2`. Do not substitute gray highlights, generic `.btn` controls, side-by-side cards, or a phrase-tile grid.
+- Keep exactly one `<p>` inside each paragraph block and one single-line explanation below both blocks. Add or remove highlight buttons only to reach the required 3-5 useful chunks; do not change their CSS.
+- Render and visually inspect the adapted fragment at about 736 px and 320 px before presenting it. If the result differs materially from the template, revise it back to the template rather than improvising a new layout.
+
 Always include both `优化版本` and `范例（Band 7）`. They have different jobs:
 
 - `优化版本`: repair the learner's own two paragraphs, keeping their grouping if it is workable.

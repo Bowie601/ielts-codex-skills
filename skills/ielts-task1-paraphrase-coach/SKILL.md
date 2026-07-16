@@ -172,6 +172,15 @@ Use Markdown-native markers so the feedback remains readable in chat and does no
 - Keep Visualize usage confined to the high-score model presentation; do not change prompt generation, the task visual, scoring, or correction order.
 - If there is no real problem, do not manufacture markers. State that the sentence is accurate and limit feedback to genuinely useful refinements.
 
+## High-Score Model Visual Style
+
+Before building the Band 8 `范例`, read [`assets/high-score-model-visual-template.html`](assets/high-score-model-visual-template.html) completely and use it as the starting fragment. Preserve its exact layout, CSS values, colored inline highlight behavior, explanation card, and interaction logic.
+
+- Change only the unique IDs, accessibility text, grouping cue, model sentence, highlighted phrase text, `data-key` values, and Chinese explanations.
+- Keep the single `Model sentence` prose block on `--viz-series-1`; do not introduce gray highlights, generic `.btn` controls, phrase tiles, columns, or multiple cards.
+- Keep exactly one `<p>` and one single-line explanation. Add or remove highlight buttons only to reach 1-3 useful chunks; do not change their CSS.
+- Render and visually inspect the adapted fragment at about 736 px and 320 px. If it differs materially from the template, revise it back to the template.
+
 For paraphrase feedback, prioritize meaning preservation and prompt-frame accuracy before grammar. Distinguish a wrong data object or missing place/time/category from a merely less natural synonym.
 
 ## Scoring Format

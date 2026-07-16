@@ -1,0 +1,105 @@
+<div id="ielts-overview-model-template">
+  <section aria-label="Band 7 overview model with selectable phrases">
+    <div class="paragraphs">
+      <article class="paragraph-block paragraph-one">
+        <div class="viz-row paragraph-meta">
+          <span class="viz-badge">Overview</span>
+          <span class="text-muted">Opposite trends + overall ranking</span>
+        </div>
+
+        <p>
+          Overall, online gaming
+          <button type="button" class="phrase-highlight" data-key="decline" data-selected="true" aria-current="true">became less popular with age</button>,
+          while gardening
+          <button type="button" class="phrase-highlight" data-key="opposite">showed the opposite trend</button>.<br>
+          Watching films
+          <button type="button" class="phrase-highlight" data-key="stable-high">remained popular across most age groups</button>,
+          whereas team sports were less common overall.
+        </p>
+      </article>
+    </div>
+
+    <div class="card selected-explanation" role="status" aria-live="polite">
+      <span id="ielts-overview-model-template-explanation">趋势概括：用 became less popular with age 总结随年龄上升而下降。</span>
+    </div>
+  </section>
+</div>
+
+<style>
+  #ielts-overview-model-template .paragraphs {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  #ielts-overview-model-template .paragraph-block {
+    display: grid;
+    gap: 0.65rem;
+    padding-inline-start: 1rem;
+    border-inline-start: 3px solid var(--phrase-color);
+  }
+
+  #ielts-overview-model-template .paragraph-one {
+    --phrase-color: var(--viz-series-1);
+  }
+
+  #ielts-overview-model-template .paragraph-meta {
+    justify-content: flex-start;
+  }
+
+  #ielts-overview-model-template p {
+    margin: 0;
+  }
+
+  #ielts-overview-model-template .phrase-highlight {
+    appearance: none;
+    display: inline;
+    margin: 0;
+    padding: 0 0.12em;
+    border: 0;
+    border-bottom: 2px solid var(--phrase-color);
+    border-radius: 0.18em;
+    color: var(--foreground);
+    background: color-mix(in srgb, var(--phrase-color) 18%, transparent);
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  #ielts-overview-model-template .phrase-highlight[data-selected="true"] {
+    background: color-mix(in srgb, var(--phrase-color) 32%, transparent);
+  }
+
+  #ielts-overview-model-template .phrase-highlight:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  #ielts-overview-model-template .selected-explanation {
+    margin-top: 1rem;
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('ielts-overview-model-template');
+    const explanation = document.getElementById('ielts-overview-model-template-explanation');
+    const explanations = {
+      decline: '趋势概括：用 became less popular with age 总结随年龄上升而下降。',
+      opposite: '对比关系：用 showed the opposite trend 连接方向相反的类别。',
+      'stable-high': '稳定高位：概括多数群体中的共同特征，而不罗列具体数据。'
+    };
+
+    root.querySelectorAll('button[data-key]').forEach((button) => {
+      button.addEventListener('click', () => {
+        root.querySelectorAll('button[data-key]').forEach((item) => {
+          item.removeAttribute('data-selected');
+          item.removeAttribute('aria-current');
+        });
+
+        button.setAttribute('data-selected', 'true');
+        button.setAttribute('aria-current', 'true');
+        explanation.textContent = explanations[button.dataset.key];
+      });
+    });
+  })();
+</script>

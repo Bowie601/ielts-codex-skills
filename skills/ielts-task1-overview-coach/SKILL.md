@@ -291,6 +291,15 @@ Use concise Chinese labels: `评分`, `原题与图表重点`, `你的概述`, `
 - Keep Visualize usage confined to the high-score model presentation; do not change prompt generation, the task visual, scoring, or correction order.
 - If the overview is accurate, do not manufacture markers. State that no obvious content or language problem is present and give only genuinely useful refinements.
 
+## High-Score Model Visual Style
+
+Before building `范例（Band 7）`, read [`assets/high-score-model-visual-template.html`](assets/high-score-model-visual-template.html) completely and use it as the starting fragment. Preserve its exact layout, CSS values, colored inline highlight behavior, explanation card, and interaction logic.
+
+- Change only the unique IDs, accessibility text, grouping cue, two-sentence model prose, highlighted phrase text, `data-key` values, and Chinese explanations.
+- Keep the single `Overview` prose block on `--viz-series-1`; do not introduce gray highlights, generic `.btn` controls, phrase tiles, columns, or multiple cards.
+- Keep exactly one `<p>` and one single-line explanation. Add or remove highlight buttons only to reach 2-4 useful chunks; do not change their CSS.
+- Render and visually inspect the adapted fragment at about 736 px and 320 px. If it differs materially from the template, revise it back to the template.
+
 Always include both `优化版本` and `范例（Band 7）` after diagnosing a learner's overview. They have different jobs:
 
 - `优化版本`: a revised version of the learner's own wording. Keep their basic structure where possible, fix grammar and wording, add missing content only if it can be done without completely rewriting the paragraph, and return exactly two complete sentences.

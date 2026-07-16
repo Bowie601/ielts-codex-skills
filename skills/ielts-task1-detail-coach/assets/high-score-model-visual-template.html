@@ -1,0 +1,123 @@
+<div id="ielts-detail-model-template">
+  <section aria-label="Band 7 detail paragraph model with two clearly separated paragraphs">
+    <div class="paragraphs">
+      <article class="paragraph-block paragraph-one">
+        <div class="viz-row paragraph-meta">
+          <span class="viz-badge">Detail paragraph 1</span>
+          <span class="text-muted">China + India · strong growth</span>
+        </div>
+
+        <p>
+          China and India began with the two lowest figures,
+          <button type="button" class="phrase-highlight" data-key="respectively" data-selected="true" aria-current="true">at 20,000 and 10,000 students respectively</button>
+          in 2000.<br>
+          China
+          <button type="button" class="phrase-highlight" data-key="overtook">overtook Malaysia by 2005</button>
+          and then rose steeply to 60,000 in 2010 and 120,000 in 2020, while India followed a similar path, climbing to 35,000 and 100,000 in those years, meaning China finished 20,000 ahead of India.
+        </p>
+      </article>
+
+      <article class="paragraph-block paragraph-two">
+        <div class="viz-row paragraph-meta">
+          <span class="viz-badge">Detail paragraph 2</span>
+          <span class="text-muted">Malaysia + Indonesia · limited change</span>
+        </div>
+
+        <p>
+          Malaysia, initially the largest source at 30,000, changed far less dramatically,
+          <button type="button" class="phrase-highlight" data-key="edging">edging up by only 8,000 over the whole period</button>.<br>
+          Indonesia started slightly lower at 25,000 and declined to a low of 20,000 in 2010; it subsequently recovered to 30,000 by 2020,
+          <button type="button" class="phrase-highlight" data-key="final-gap">still 8,000 below Malaysia and only one quarter of China’s final total</button>.
+        </p>
+      </article>
+    </div>
+
+    <div class="card selected-explanation" role="status" aria-live="polite">
+      <span id="ielts-detail-model-template-explanation">数据配对：用 respectively 紧凑对应两组同年份数据。</span>
+    </div>
+  </section>
+</div>
+
+<style>
+  #ielts-detail-model-template .paragraphs {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  #ielts-detail-model-template .paragraph-block {
+    display: grid;
+    gap: 0.65rem;
+    padding-inline-start: 1rem;
+    border-inline-start: 3px solid var(--phrase-color);
+  }
+
+  #ielts-detail-model-template .paragraph-one {
+    --phrase-color: var(--viz-series-1);
+  }
+
+  #ielts-detail-model-template .paragraph-two {
+    --phrase-color: var(--viz-series-2);
+  }
+
+  #ielts-detail-model-template .paragraph-meta {
+    justify-content: flex-start;
+  }
+
+  #ielts-detail-model-template p {
+    margin: 0;
+  }
+
+  #ielts-detail-model-template .phrase-highlight {
+    appearance: none;
+    display: inline;
+    margin: 0;
+    padding: 0 0.12em;
+    border: 0;
+    border-bottom: 2px solid var(--phrase-color);
+    border-radius: 0.18em;
+    color: var(--foreground);
+    background: color-mix(in srgb, var(--phrase-color) 18%, transparent);
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  #ielts-detail-model-template .phrase-highlight[data-selected="true"] {
+    background: color-mix(in srgb, var(--phrase-color) 32%, transparent);
+  }
+
+  #ielts-detail-model-template .phrase-highlight:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  #ielts-detail-model-template .selected-explanation {
+    margin-top: 1rem;
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('ielts-detail-model-template');
+    const explanation = document.getElementById('ielts-detail-model-template-explanation');
+    const explanations = {
+      respectively: '数据配对：用 respectively 紧凑对应两组同年份数据。',
+      overtook: '排名反转：用 overtook + 时间点准确交代谁在何时超过谁。',
+      edging: '微小变化：用 edging up by only 强调全期增幅有限。',
+      'final-gap': '综合比较：同时写绝对差距和比例，避免只报孤立数字。'
+    };
+
+    root.querySelectorAll('button[data-key]').forEach((button) => {
+      button.addEventListener('click', () => {
+        root.querySelectorAll('button[data-key]').forEach((item) => {
+          item.removeAttribute('data-selected');
+          item.removeAttribute('aria-current');
+        });
+
+        button.setAttribute('data-selected', 'true');
+        button.setAttribute('aria-current', 'true');
+        explanation.textContent = explanations[button.dataset.key];
+      });
+    });
+  })();
+</script>
