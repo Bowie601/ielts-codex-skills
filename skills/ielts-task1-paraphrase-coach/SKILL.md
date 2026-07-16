@@ -147,14 +147,32 @@ When reviewing a learner rewrite, use this order:
 
 1. Start with `评分`: give one direct IELTS-style band estimate first so the learner can immediately understand the quality of the paraphrase.
 2. Under the score, give one brief verdict that names what worked and the main weakness.
-3. Show `整句对照`: original prompt and learner sentence in blockquotes, with changed/problem phrases bolded.
-4. Show `问题诊断`: identify meaning problems first, then language problems. Use a short Markdown table.
-5. Show `范例`: give one clean Band 8-level model sentence only. Do not give multiple competing model answers unless the user explicitly asks for alternatives.
-6. Show `替换模板`: after the model sentence, give 2-4 common reusable replacement templates for the same prompt type or same grammar focus.
-7. Show `范例对照`: compare the original prompt with the model sentence in a Markdown table so the standard paraphrase path is visible.
-8. End with one targeted mini-practice or ask whether to continue with a similar prompt.
+3. Show `整句对照`: keep the original prompt clean, then quote the learner sentence with direct inline correction markers on the smallest problematic phrases.
+4. Show `逐处修改`: map every numbered marker to its problem type, crossed-out original wording, recommended replacement, and one brief reason.
+5. Show `问题诊断`: identify meaning problems first, then language problems. Use a short Markdown table only for broader issues not already explained by the inline replacements.
+6. Show `范例`: use [$visualize:visualize](/Users/bytedance/.codex/plugins/cache/openai-bundled/visualize/1.0.11/skills/visualize/SKILL.md) to present one Band 8 model as a compact phrase explainer with 1-3 reusable chunks and no correction marks.
+7. In that visual, show the model once, make each highlighted chunk selectable, and update one single-line Chinese explanation of its function or reusable pattern. If the visual cannot be created, fall back to bold chunks plus `高亮表达`.
+8. Show `替换模板`: after the model sentence, give 2-4 common reusable replacement templates for the same prompt type or same grammar focus.
+9. Show `范例对照`: compare the original prompt with the model sentence in a Markdown table so the standard paraphrase path is visible.
+10. End with one targeted mini-practice or ask whether to continue with a similar prompt.
 
-Use concise labels like `评分`, `整句对照`, `问题诊断`, `范例`, `替换模板`, `范例对照`, and `小练习` when teaching in Chinese.
+Use concise labels like `评分`, `整句对照`, `逐处修改`, `问题诊断`, `范例`, `高亮表达`, `替换模板`, `范例对照`, and `小练习` when teaching in Chinese.
+
+### Inline Correction Markup
+
+Use Markdown-native markers so the feedback remains readable in chat and does not depend on custom rendering:
+
+- In the learner sentence, mark only the smallest problematic span as `~~original wording~~〔1〕`. Keep correct surrounding text unchanged and unbolded.
+- Under `逐处修改`, use `❌` for incorrect meaning or grammar, `△` for understandable but unnatural or inappropriate wording, and `➕` for omitted information that has no phrase to cross out.
+- Format a direct replacement as `❌ 〔1〕 意思错位：~~old wording~~ → **✅ 建议替换：new wording** — brief reason.`
+- Format an omission as `➕ 内容遗漏：**建议补充：missing element** — brief reason.` Do not invent a deletion marker when nothing in the learner sentence corresponds to the omission.
+- Number markers in reading order and use the same number in the quoted sentence and `逐处修改`.
+- Keep `问题诊断` for sentence-level or structural issues that cannot be localized cleanly. Do not repeat every inline correction in a second table.
+- In any close revision of the learner sentence, bold only the words actually replaced or added. For the independent Band 8 model, invoke the linked Visualize skill and follow its full output contract; keep the visual compact, accessible, theme-aware, and limited to phrase-to-function mapping. Show the model only once and do not duplicate it in Markdown. If visualization is unavailable, bold 1-3 reusable chunks and explain them under `高亮表达`; never bold the whole sentence or isolated ordinary words.
+- Keep Visualize usage confined to the high-score model presentation; do not change prompt generation, the task visual, scoring, or correction order.
+- If there is no real problem, do not manufacture markers. State that the sentence is accurate and limit feedback to genuinely useful refinements.
+
+For paraphrase feedback, prioritize meaning preservation and prompt-frame accuracy before grammar. Distinguish a wrong data object or missing place/time/category from a merely less natural synonym.
 
 ## Scoring Format
 
@@ -258,15 +276,17 @@ Keep replacement templates close to the learner's level:
 
 ## Visual Comparison Format
 
-Use plain Markdown only so the comparison remains visible in chat. Do not rely on HTML, background colors, or rendered styling beyond bold text, blockquotes, code spans, and tables.
+Use plain Markdown for correction and comparison blocks. The high-score model is the only exception: render it with the linked Visualize skill, then fall back to bold chunks plus `高亮表达` only when visualization is unavailable.
 
 When the learner submits a paraphrase, include these comparison blocks near the top:
 
-1. `整句对照`: show the original prompt and learner sentence in blockquotes. Bold the changed phrases in both sentences where possible.
-2. `问题诊断`: use a short Markdown table for actual issues. If there are no major issues, say `没有明显意思错误，主要是标点、大小写或自然度的小调整。`
-3. `范例`: give one Band 8-level model sentence only. Choose the best balance of accuracy, precision, naturalness, and useful structure-level paraphrasing.
-4. `替换模板`: give 2-4 reusable templates immediately after the model. Keep each template on its own bullet and use placeholders when helpful.
-5. `范例对照`: compare the original prompt with the model sentence, not the learner's sentence. Use a Markdown table with columns `位置`, `原句`, `范例`, and `改写点`. Bold changed phrases so the difference is visible.
+1. `整句对照`: show the original prompt cleanly, then show the learner sentence with `~~problematic phrase~~〔n〕` markers.
+2. `逐处修改`: pair each marker with a visible old-to-new replacement and one short reason. Use `➕ 内容遗漏` for missing prompt-frame elements.
+3. `问题诊断`: use a short Markdown table only for broader issues not already covered inline. If there are no major issues, say `没有明显意思错误，主要是标点、大小写或自然度的小调整。`
+4. `范例`: give one Band 8-level model sentence only. Bold 1-3 useful phrase-level or structure-level chunks, without correction marks.
+5. `高亮表达`: explain each bolded chunk's reusable function briefly in Chinese.
+6. `替换模板`: give 2-4 reusable templates immediately after the model. Keep each template on its own bullet and use placeholders when helpful.
+7. `范例对照`: compare the original prompt with the model sentence, not the learner's sentence. Use a Markdown table with columns `位置`, `原句`, `范例`, and `改写点`. Bold changed phrases so the difference is visible.
 
 Do not include a separate `修改说明` section by default because it often repeats `问题诊断`. If the learner asks why, then explain the grammar/paraphrase pattern after the diagnosis.
 
@@ -407,7 +427,7 @@ For a learner sentence like:
 
 `The chart illustrates the percentage of owned or rented accommodation of households during 1995 to 2020 in an European country.`
 
-Respond in this style:
+Use this response structure; the `范例` and `高亮表达` block below is the Markdown fallback when visualization is unavailable:
 
 **评分**
 
@@ -419,19 +439,26 @@ Band 5.0
 
 > 原句：The chart shows the percentage of households that owned or rented accommodation in one European country between 1995 and 2020.
 >
-> 你的句子：The chart illustrates the percentage of **owned or rented accommodation of households** **during 1995 to 2020** in **an European country**.
+> 你的句子：The chart illustrates ~~the percentage of owned or rented accommodation of households~~〔1〕 ~~during 1995 to 2020~~〔2〕 in ~~an European country~~〔3〕.
+
+**逐处修改**
+
+- ❌ 〔1〕 意思错位：~~the percentage of owned or rented accommodation of households~~ → **✅ 建议替换：the proportions of households owning and renting accommodation** — 百分比描述的是 households，而不是 accommodation 本身。
+- △ 〔2〕 搭配不当：~~during 1995 to 2020~~ → **✅ 建议替换：between 1995 and 2020** — 起止年份通常使用 `between ... and ...` 或 `from ... to ...`。
+- ❌ 〔3〕 冠词错误：~~an European country~~ → **✅ 建议替换：a European country** — `European` 以 /j/ 辅音音素开头。
 
 **问题诊断**
 
-| 位置 | 问题 | 建议 |
-|---|---|---|
-| `the percentage of owned or rented accommodation of households` | 数据对象错位 | 写成 `the proportion of households that owned or rented accommodation` |
-| `during 1995 to 2020` | 时间介词不自然 | 用 `from 1995 to 2020` 或 `between 1995 and 2020` |
-| `an European country` | 冠词错误 | 改为 `a European country` |
+没有其他结构性问题；主要需要修正数据对象、时间搭配和冠词。
 
 **范例**
 
-`The chart compares the proportions of households owning and renting accommodation in a European country between 1995 and 2020.`
+The chart **compares the proportions of households owning and renting accommodation** in a European country **between 1995 and 2020**.
+
+**高亮表达**
+
+- `compares the proportions of A and B`：比较两类比例时可复用。
+- `between year and year`：表达明确的起止年份。
 
 **替换模板**
 

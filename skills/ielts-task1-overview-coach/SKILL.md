@@ -267,15 +267,29 @@ When reviewing a learner overview, use this order:
 1. Start with `评分`: give one direct IELTS-style estimate for this overview paragraph.
 2. Under the score, give one brief verdict naming the main content strength and main content weakness before mentioning grammar.
 3. Show `原题与图表重点`: restate the task and list 2-3 true main features in Chinese.
-4. Show `你的概述`: quote the learner's overview and bold problem phrases.
-5. Show `问题诊断`: prioritize feature selection and paragraph role before grammar. Use a short Markdown table.
-6. Show `优化版本`: improve the learner's own overview while preserving as much of their structure and wording as possible, and make it exactly two complete sentences.
-7. Show `范例（Band 7）`: give one concise, reliable Band 7-level model overview paragraph containing exactly two complete sentences.
-8. Show `可迁移句式`: abstract 2-3 reusable whole-overview templates from the answer, with exactly two connected sentences in each template.
-9. Show `范例对照`: compare the key visual features with the model wording.
-10. End with one targeted mini-practice or ask whether to continue with a similar prompt.
+4. Show `你的概述`: quote the learner's overview and place numbered inline markers on only the smallest problematic phrases.
+5. Show `逐处修改`: map every marker to its problem type, crossed-out original wording, recommended replacement, and one brief reason. Show missing main features as additions rather than forcing them onto an unrelated phrase.
+6. Show `问题诊断`: prioritize feature selection and paragraph role before grammar. Use a short Markdown table only for broader issues not already explained by the inline replacements.
+7. Show `优化版本`: improve the learner's own overview while preserving as much of their structure and wording as possible, make it exactly two complete sentences, and bold only the words actually replaced or added.
+8. Show `范例（Band 7）`: use [$visualize:visualize](/Users/bytedance/.codex/plugins/cache/openai-bundled/visualize/1.0.11/skills/visualize/SKILL.md) to present one concise two-sentence model as a compact phrase explainer with 2-4 reusable chunks and no correction marks.
+9. In that visual, show the model once, make each highlighted chunk selectable, and update one single-line Chinese explanation of its overview function or reusable pattern. If the visual cannot be created, fall back to bold chunks plus `高亮表达`.
+10. Show `可迁移句式`: abstract 2-3 reusable whole-overview templates from the answer, with exactly two connected sentences in each template.
+11. Show `范例对照`: compare the key visual features with the model wording.
+12. End with one targeted mini-practice or ask whether to continue with a similar prompt.
 
-Use concise Chinese labels: `评分`, `原题与图表重点`, `你的概述`, `问题诊断`, `优化版本`, `范例（Band 7）`, `可迁移句式`, `范例对照`, `小练习`.
+Use concise Chinese labels: `评分`, `原题与图表重点`, `你的概述`, `逐处修改`, `问题诊断`, `优化版本`, `范例（Band 7）`, `高亮表达`, `可迁移句式`, `范例对照`, `小练习`.
+
+### Inline Correction Markup
+
+- In the quoted learner overview, mark only the smallest problematic span as `~~original wording~~〔1〕`; keep correct surrounding text unchanged and unbolded.
+- Under `逐处修改`, use `❌` for inaccurate meaning or grammar, `△` for understandable but unnatural or inappropriate wording, and `➕` for omitted overview content.
+- Format a direct replacement as `❌ 〔1〕 错误类型：~~old wording~~ → **✅ 建议替换：new wording** — brief reason.`
+- Format a missing feature as `➕ 内容遗漏：**建议补充：missing main feature** — brief reason.` Do not attach it to an unrelated phrase in the learner's sentence.
+- Number markers in reading order and use the same number in the quoted overview and `逐处修改`.
+- Keep `问题诊断` for non-local issues such as wrong feature selection, detail dumping, weak two-sentence division, or failure to cover the whole visual. Do not repeat every inline correction in the table.
+- In `优化版本`, bold only actual replacements or additions. For `范例（Band 7）`, invoke the linked Visualize skill and follow its full output contract; keep the visual compact, accessible, theme-aware, and limited to phrase-to-function mapping. Show the model only once and do not duplicate it in Markdown. If visualization is unavailable, bold 2-4 reusable chunks and explain them under `高亮表达`; never bold the whole sentence or isolated ordinary words.
+- Keep Visualize usage confined to the high-score model presentation; do not change prompt generation, the task visual, scoring, or correction order.
+- If the overview is accurate, do not manufacture markers. State that no obvious content or language problem is present and give only genuinely useful refinements.
 
 Always include both `优化版本` and `范例（Band 7）` after diagnosing a learner's overview. They have different jobs:
 
@@ -424,7 +438,7 @@ For a learner overview like:
 
 `Overall, online gaming became less popular with age, while gardening showed the opposite pattern. Online gaming was particularly popular among people under 50, whereas gardening was preferred by those aged 65 and over.`
 
-Respond in this style:
+Use this response structure; the `范例（Band 7）` and `高亮表达` block below is the Markdown fallback when visualization is unavailable:
 
 **评分：概述段预估 Band 7.0**
 
@@ -440,6 +454,10 @@ Respond in this style:
 
 > Overall, online gaming became less popular with age, while gardening showed the opposite pattern. Online gaming was particularly popular among people under 50, whereas gardening was preferred by those aged 65 and over.
 
+**逐处修改**
+
+- ➕ 内容遗漏：**建议补充：watching films 在多数年龄组中保持较高水平，而 team sports 整体较低** — 原概述的第二句仍在重复 online gaming 和 gardening，没有覆盖另一个重要整体特征。
+
 **问题诊断**
 
 | 位置 | 问题 | 建议 |
@@ -449,11 +467,17 @@ Respond in this style:
 
 **优化版本**
 
-`Overall, online gaming became less popular with age, while gardening showed the opposite pattern. Watching films remained popular across most age groups, whereas team sports attracted lower participation overall.`
+Overall, online gaming became less popular with age, while gardening showed the opposite pattern. **Watching films remained popular across most age groups, whereas team sports attracted lower participation overall.**
 
 **范例（Band 7）**
 
-`Overall, online gaming became less popular with age, while gardening showed the opposite trend. Watching films remained popular across most age groups, whereas team sports were less common overall.`
+Overall, online gaming **became less popular with age**, while gardening **showed the opposite trend**. Watching films **remained popular across most age groups**, whereas team sports were less common overall.
+
+**高亮表达**
+
+- `became less popular with age`：概括随年龄增长而下降。
+- `showed the opposite trend`：连接相反趋势。
+- `remained popular across most age groups`：概括多数群体中的稳定高位。
 
 **可迁移句式**
 

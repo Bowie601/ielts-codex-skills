@@ -189,15 +189,29 @@ When reviewing learner detail paragraphs, use this order:
 1. Start with `评分`: give one direct IELTS-style estimate for these detail paragraphs only.
 2. Under the score, give one brief verdict naming the main content strength and main content weakness before mentioning grammar.
 3. Show `原题与图表重点`: restate the task and list 2-4 true detail-grouping priorities in Chinese.
-4. Show `你的详情段`: quote the learner's response and bold problem phrases.
-5. Show `问题诊断`: prioritize grouping, data selection, comparison, and paragraph balance before grammar. Use a short Markdown table.
-6. Show `优化版本`: improve the learner's own two detail paragraphs while preserving as much structure and wording as possible.
-7. Show `范例（Band 7）`: give one concise, exam-ready Band 7-level model with exactly two detail paragraphs.
-8. Show `可迁移句式`: give 2-3 reusable two-paragraph or paragraph-pair templates.
-9. Show `范例对照`: compare visual details with the model wording.
-10. End with `小练习`: one targeted sentence or mini-paragraph drill based on the learner's main weakness.
+4. Show `你的详情段`: quote the learner's response and place numbered inline markers on only the smallest problematic phrases.
+5. Show `逐处修改`: map every marker to its problem type, crossed-out original wording, recommended replacement, and one brief reason. Show missing evidence or comparisons as additions rather than attaching them to unrelated wording.
+6. Show `问题诊断`: prioritize grouping, data selection, comparison, and paragraph balance before grammar. Use a short Markdown table only for broader issues not already explained by the inline replacements.
+7. Show `优化版本`: improve the learner's own two detail paragraphs while preserving as much structure and wording as possible, and bold only the words actually replaced or added.
+8. Show `范例（Band 7）`: use [$visualize:visualize](/Users/bytedance/.codex/plugins/cache/openai-bundled/visualize/1.0.11/skills/visualize/SKILL.md) to present one concise two-paragraph model as a compact phrase explainer with 3-5 reusable comparison, data, sequencing, or location chunks and no correction marks.
+9. In that visual, show the model once, make each highlighted chunk selectable, and update one single-line Chinese explanation of its detail-paragraph function or reusable pattern. If the visual cannot be created, fall back to bold chunks plus `高亮表达`.
+10. Show `可迁移句式`: give 2-3 reusable two-paragraph or paragraph-pair templates.
+11. Show `范例对照`: compare visual details with the model wording.
+12. End with `小练习`: one targeted sentence or mini-paragraph drill based on the learner's main weakness.
 
-Use concise Chinese labels: `评分`, `原题与图表重点`, `你的详情段`, `问题诊断`, `优化版本`, `范例（Band 7）`, `可迁移句式`, `范例对照`, `小练习`.
+Use concise Chinese labels: `评分`, `原题与图表重点`, `你的详情段`, `逐处修改`, `问题诊断`, `优化版本`, `范例（Band 7）`, `高亮表达`, `可迁移句式`, `范例对照`, `小练习`.
+
+### Inline Correction Markup
+
+- In the quoted learner paragraphs, mark only the smallest problematic span as `~~original wording~~〔1〕`; keep correct surrounding text unchanged and unbolded.
+- Under `逐处修改`, use `❌` for inaccurate meaning, grammar, figures, or comparisons; `△` for understandable but unnatural or inappropriate wording; and `➕` for omitted evidence or comparison.
+- Format a direct replacement as `❌ 〔1〕 错误类型：~~old wording~~ → **✅ 建议替换：new wording** — brief reason.`
+- Format a missing detail as `➕ 内容遗漏：**建议补充：missing evidence or comparison** — brief reason.` Do not force an omission marker onto an unrelated phrase.
+- Number markers in reading order across both paragraphs and use the same number in the quoted response and `逐处修改`.
+- Keep `问题诊断` for paragraph-level issues such as wrong grouping, data dumping, weak paragraph balance, missing support, or overview-style repetition. Do not repeat every inline correction in the table.
+- In `优化版本`, bold only actual replacements or additions. For `范例（Band 7）`, invoke the linked Visualize skill and follow its full output contract; keep the visual compact, accessible, theme-aware, and limited to phrase-to-function mapping. Show the model only once and do not duplicate it in Markdown. If visualization is unavailable, bold 3-5 reusable chunks and explain them under `高亮表达`; never bold whole sentences, figures alone, or isolated ordinary words.
+- Keep Visualize usage confined to the high-score model presentation; do not change prompt generation, the task visual, scoring, or correction order.
+- If the detail paragraphs are accurate and well grouped, do not manufacture markers. State that no obvious content or language problem is present and give only genuinely useful refinements.
 
 Always include both `优化版本` and `范例（Band 7）`. They have different jobs:
 
