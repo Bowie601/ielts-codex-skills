@@ -83,6 +83,8 @@ For line graph prompts, include:
 
 Create a local `.svg` file in the active IELTS workspace and show it directly with Markdown image syntax using the absolute filesystem path. Also provide a local file link to the same `.svg`. Do not start a local HTTP server for line graphs. Use a clean IELTS-style SVG: white background, serif font, thin black axes/gridlines, direct labels or a clear legend, and restrained colors or line styles.
 
+For line graphs, label every plotted data point with its exact value, including the unit or percent sign where applicable. Place each value next to its marker, using small offsets, alternating positions, leader lines, or extra chart space when lines are close together. Do not make the learner infer values from the axis or estimate unlabeled points. Check that value labels do not overlap markers, lines, axes, legends, titles, or one another at the displayed size.
+
 For process diagram prompts, include:
 
 **图表图片**
@@ -144,7 +146,7 @@ Good detail paragraphs usually answer these questions:
 
 | Subtype | What To Look For In Detail Paragraphs |
 |---|---|
-| Line graph | Group lines by similar movement, high/low rank, convergence/divergence, or opposite trends. Include start/end figures and key turning points only when they matter. |
+| Line graph | Group lines by similar movement, high/low rank, convergence/divergence, or opposite trends. Include start/end figures and key turning points only when they matter. The visual itself must show the exact value beside every plotted point. |
 | Bar chart | Group categories or series logically. Include highest/lowest values and major contrasts; avoid listing every bar in order. |
 | Pie chart | Group large vs small shares, compare repeated categories across pies, and mention meaningful changes in proportions. |
 | Table | Group rows or columns by high/low values, similarities, outliers, or time changes. Do not turn the paragraph into a row-by-row inventory. |
@@ -201,6 +203,28 @@ When reviewing learner detail paragraphs, use this order:
 
 Use concise Chinese labels: `评分`, `原题与图表重点`, `你的详情段`, `逐处修改`, `问题诊断`, `优化版本`, `范例（Band 7）`, `高亮表达`, `可迁移句式`, `范例对照`, `小练习`.
 
+### Interactive Feedback Deduplication
+
+- Do not repeat content that is already fully visible in an interactive visualization. Keep the Markdown response additive rather than duplicating the same prose.
+- When an error-marker visualization contains the learner's full response, numbered markers, replacements, and reasons, under `你的详情段` output only the visualization directive. Do not quote the response again or repeat the marker-by-marker correction list in Markdown.
+- When a model visualization contains the complete Band 7 answer, output only the visualization directive under `范例（Band 7）`. Do not reproduce the model paragraphs in Markdown.
+- Keep the surrounding text concise: retain the score, chart priorities, paragraph-level diagnosis, optimized version when it adds value, transferable sentence patterns, model comparison, and mini-practice. Do not restate details that the visual already shows.
+- Omit `优化版本` when it would merely repeat the learner's text with the same corrections already shown in the interactive error visual. Include it only when it provides a materially cleaner paragraph structure or a useful rewritten answer.
+- If the interactive visualization cannot be created, use the full Markdown correction and model formats specified above as the fallback.
+
+### Interactive Review Output Contract
+
+When interactive visuals are available, use exactly two visual directives in a learner-response review:
+
+1. One correction visual containing the learner's full response, numbered markers, replacements, and reasons.
+2. One Band 7 model visual containing the complete independent model and selectable phrase explanations.
+
+For the correction visual, output the directive exactly once under a single heading such as `修改互动反馈`. Do not output the same directive under both `你的详情段` and `逐处修改`, and do not reproduce the quoted response or a separate marker-by-marker list in Markdown.
+
+For the model visual, output the directive exactly once under `范例（Band 7）`. Do not add a separate Markdown model or a second model-comparison block that repeats its content.
+
+When both visuals work, omit `优化版本` by default. Add a short optimized answer only when the learner explicitly asks for it or when it makes a substantial structural improvement that neither visual already provides. Keep the remaining Markdown sections limited to `评分`, `原题与图表重点`, paragraph-level `问题诊断`, `可迁移句式`, and `小练习`.
+
 ### Inline Correction Markup
 
 - In the quoted learner paragraphs, mark only the smallest problematic span as `~~original wording~~〔1〕`; keep correct surrounding text unchanged and unbolded.
@@ -223,7 +247,7 @@ Before building `范例（Band 7）`, read [`assets/high-score-model-visual-temp
 - Keep exactly one `<p>` inside each paragraph block and one single-line explanation below both blocks. Add or remove highlight buttons only to reach the required 3-5 useful chunks; do not change their CSS.
 - Render and visually inspect the adapted fragment at about 736 px and 320 px before presenting it. If the result differs materially from the template, revise it back to the template rather than improvising a new layout.
 
-Always include both `优化版本` and `范例（Band 7）`. They have different jobs:
+For Markdown fallback, normally include both `优化版本` and `范例（Band 7）`. They have different jobs. When interactive visuals are available, follow the `Interactive Review Output Contract` instead:
 
 - `优化版本`: repair the learner's own two paragraphs, keeping their grouping if it is workable.
 - `范例（Band 7）`: provide an independent model with stronger grouping, selection, comparison, and natural Task 1 wording.
